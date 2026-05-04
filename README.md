@@ -171,5 +171,5 @@ python src/run_pipeline.py
 
 ## Author
 
-Vikas Rajpoot (27442), Karlosh Yadav (27056)
+Vikas Rajpoot (27442), Karlosh Yadav (27506)
 CP260 — Robotic Perception (2026)
