@@ -1,73 +1,73 @@
-# Metric-Semantic 3D Reconstruction of a Desktop Scene
+# Metric-Semantic 3D Reconstruction for a Desktop Scene
 
 ## Overview
 
-This project implements a complete metric-semantic reconstruction pipeline to estimate **3D Oriented Bounding Boxes (OBBs)** of small desktop components using multi-view RGB images.
+This project develops a complete metric-semantic reconstruction pipeline for estimating **3D Oriented Bounding Boxes (OBBs)** of small components present in a desktop scene using multi-view RGB images.
 
-Instead of relying on heavy deep learning detection models, this work follows a **geometry-first approach**, using multi-view triangulation and classical computer vision techniques to achieve accurate 3D localization.
+Rather than depending on large deep learning-based detection models, this work uses a **geometry-first method**. The pipeline mainly applies multi-view triangulation and classical computer vision techniques to obtain accurate 3D localization of the target objects.
 
 ---
 
 ## Problem Statement
 
-Given:
+Input provided:
 
-* 16 posed RGB images (2560 × 1440 resolution)
-* Camera intrinsics and camera-to-world poses
+* 16 RGB images with known camera poses and 2560 × 1440 resolution
+* Camera intrinsic parameters and camera-to-world pose information
 
-Goal:
+Objective:
 
 * Estimate 3D OBBs for:
 
   * `ethernet_socket`
   * `power_socket`
-* Validate pipeline using:
+* Validate the reconstruction pipeline using:
 
-  * `vga_socket` (ground truth provided)
+  * `vga_socket` with provided ground truth
 
 ---
 
 ## Approach
 
-The pipeline consists of the following steps:
+The complete pipeline is carried out through the following steps:
 
 1. **Manual 2D Annotation**
 
-   * Bounding boxes marked on two selected frames
+   * Bounding boxes are manually marked on two selected image frames
 
 2. **Multi-View Triangulation**
 
-   * Grid-based correspondence inside bounding boxes
-   * DLT (Direct Linear Transform) used to reconstruct 3D points
+   * Grid-based correspondences are generated within the annotated bounding boxes
+   * DLT (Direct Linear Transform) is applied to reconstruct 3D points
 
 3. **Outlier Removal**
 
-   * Median Absolute Deviation (MAD) filtering
+   * Median Absolute Deviation (MAD) filtering is used to remove noisy points
 
 4. **OBB Fitting**
 
-   * PCA-based orientation estimation
-   * Depth prior used due to planar structure
+   * PCA-based orientation estimation is used for fitting the oriented bounding boxes
+   * A depth prior is applied because the connector regions are nearly planar
 
 5. **Output Generation**
 
-   * Results exported in required `answers.json` format
+   * Final results are exported in the required `answers.json` format
 
 ---
 
 ## Key Features
 
-* No dependency on object detection models (GroundingDINO/SAM not required)
-* Lightweight and fast (runs fully on Google Colab)
-* Modular Python implementation
-* Robust to small object sizes
-* Achieves **< 5 cm center error** on validation
+* Does not depend on object detection models such as GroundingDINO or SAM
+* Lightweight and fast pipeline that can run completely on Google Colab
+* Modular implementation in Python
+* Works effectively for small-sized object localization
+* Achieves **< 5 cm center error** during validation
 
 ---
 
 ## Repository Structure
 
-```
+```text
 project/
 ├── src/
 │   ├── config.py
@@ -98,13 +98,13 @@ project/
 
 ### Option 1: Google Colab (Recommended)
 
-Open the notebook:
+Open the notebook file:
 
-```
+```text
 notebook/final_pipeline.ipynb
 ```
 
-Run all cells sequentially.
+Run all cells one by one in sequence.
 
 ---
 
@@ -119,9 +119,9 @@ python src/run_pipeline.py
 
 ## Results
 
-* Accurate 3D reconstruction of connector ports
-* Successful validation using VGA socket ground truth
-* Sub-centimeter level accuracy achieved
+* Successfully reconstructs the connector ports in 3D
+* VGA socket ground truth is used for validating the pipeline
+* Sub-centimeter level accuracy is achieved
 
 ### Output Format
 
@@ -155,21 +155,21 @@ python src/run_pipeline.py
 
 ## Notes
 
-* Dataset is not included due to size constraints
+* The dataset is not included because of size limitations
 * Camera poses are provided in `poses.json`
-* Depth prior (6 mm) is used for all connector types
+* A 6 mm depth prior is used for all connector types
 
 ---
 
 ## Future Improvements
 
-* Automate 2D annotation using segmentation models
-* Improve robustness with multi-frame triangulation
-* Extend to full scene reconstruction
+* Automate the 2D annotation process using segmentation models
+* Improve robustness by using triangulation from multiple frames
+* Extend the pipeline toward complete scene reconstruction
 
 ---
 
 ## Author
 
-Vikas Rajpoot (27442), Karlosh Yadav (27506)
+Vikas Rajpoot (27442), Karlosh Yadav (27506)  
 CP260 — Robotic Perception (2026)
